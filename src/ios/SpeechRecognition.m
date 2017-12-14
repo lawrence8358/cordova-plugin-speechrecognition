@@ -1,4 +1,4 @@
-// https://developer.apple.com/library/prerelease/content/samplecode/SpeakToMe/Listings/SpeakToMe_ViewController_swift.html
+﻿// https://developer.apple.com/library/prerelease/content/samplecode/SpeakToMe/Listings/SpeakToMe_ViewController_swift.html
 // http://robusttechhouse.com/introduction-to-native-speech-recognition-for-ios/
 // https://www.appcoda.com/siri-speech-framework/
 
@@ -109,7 +109,12 @@
 
                 NSLog(@"startListening() recognitionTask result array: %@", transcriptions.description);
 
-                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:transcriptions];
+                //modify by lawrence, 調整回傳值類型，須包含是否完成解析的註記
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:2];
+                [dict setObject:[NSNumber numberWithBool:result.isFinal] forKey:@"isFinal"];
+                [dict setObject:transcriptions forKey:@"dataArray"];
+                
+                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict]; 
                 if (showPartial){
                     [pluginResult setKeepCallbackAsBool:YES];
                 }

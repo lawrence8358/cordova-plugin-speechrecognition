@@ -1,4 +1,4 @@
-# cordova-plugin-speechrecognition
+﻿# cordova-plugin-speechrecognition
 
 [![npm](https://img.shields.io/npm/v/cordova-plugin-speechrecognition.svg)](https://www.npmjs.com/package/cordova-plugin-speechrecognition)
 ![Platform](https://img.shields.io/badge/platform-android%20%7C%20ios-lightgrey.svg)
@@ -55,7 +55,20 @@ This method has an options parameter with the following optional values:
 - `showPopup` {Boolean} display listener popup window with prompt (default `true`, Android only)
 - `showPartial` {Boolean} Allow partial results to be returned (default `false`)
 
-Result of success callback is an `Array` of recognized terms.
+for `android` Result of success callback is an `Array` of recognized terms.
+```json
+[ "Hello", "哈摟"]
+```
+
+for `iOS` Result of success callback is an `JSON Object`.
+- `isFinal` {Boolean} Speech recognition is complete flag
+- `dataArray` {Array} Result of recognized terms.
+```json
+{
+  "isFinal": true,
+  "dataArray": [ "Hello", "哈摟"]
+}
+```
 
 There is a difference between Android and iOS platforms. On Android speech recognition stops when the speaker finishes speaking (at end of sentence). On iOS the user has to stop manually the recognition process by calling stopListening() method.
 
